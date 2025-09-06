@@ -1,0 +1,11 @@
+.footer {
+  flex: auto;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #1e3a5f;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 8px 8px 0 0;
+}

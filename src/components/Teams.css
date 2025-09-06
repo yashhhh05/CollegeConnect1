@@ -1,0 +1,102 @@
+.teams-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.teams-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.teams-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.teams-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.find-team-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.find-team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.team-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.team-event-name {
+  color: #888;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+
+.team-description {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.skills-section, .members-section {
+  margin-bottom: 1rem;
+}
+
+.skill-tag {
+  display: inline-block;
+  background: #007bff;
+  color: #fff;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  margin: 0 0.3rem 0.3rem 0;
+  font-size: 0.8rem;
+}
+
+.members-avatars {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.member-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.join-team-btn {
+  background: #28a745;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.3s;
+}
+
+.join-team-btn:hover {
+  background: #218838;
+}

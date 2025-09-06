@@ -1,0 +1,77 @@
+/* src/components/EventsSection.css */
+
+.events-section {
+  padding: 40px 0; /* Adjust padding */
+}
+
+/* ✨ STYLES FOR THE NEW "GLASS" CONTAINER ✨ */
+.section-header {
+  text-align: center;
+  padding: 30px;
+  margin-bottom: 40px;
+  
+  /* Semi-transparent background */
+  background-color: rgba(24, 26, 27, 0.7);
+
+  /* Modern blur effect */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.events-title {
+  font-size: 3rem; /* Make the title bigger */
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #ffffff; /* Ensure high contrast */
+}
+
+.events-subtitle {
+  font-size: 1.2rem;
+  color: #e0e0e0; /* A light gray is softer than pure white */
+  margin-bottom: 0;
+}
+
+/* --- Grid and Card styles (mostly unchanged) --- */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.event-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  text-decoration: none;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+}
+
+
+/* ... (the rest of your EventsSection.css, including modal styles, can remain) */

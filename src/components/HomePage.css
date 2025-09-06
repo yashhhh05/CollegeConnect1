@@ -1,0 +1,79 @@
+/* src/components/HomePage.css */
+
+.homepage-container {
+  padding: 40px 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Re-using the glassmorphism header style for consistency --- */
+.section-header {
+  text-align: center;
+  padding: 30px 25px;
+  margin-bottom: 50px;
+  background-color: rgba(24, 26, 27, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.homepage-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.homepage-subtitle {
+  font-size: 1.2rem;
+  color: #e0e0e0;
+  margin: 0 auto;
+  max-width: 650px;
+}
+
+/* --- Call to Action Cards Container --- */
+.cta-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.cta-card {
+  background-color: rgba(30, 32, 33, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 35px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.cta-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  border-color: rgba(124, 255, 103, 0.5); /* Highlight with your theme's accent color */
+}
+
+.cta-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+  color: #7cff67; /* Accent color from your Aurora theme */
+}
+
+.cta-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.cta-description {
+  font-size: 1rem;
+  color: #ccc;
+  line-height: 1.6;
+}
