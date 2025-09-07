@@ -1,52 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
+import './Teams.css';
+import "./Model.css";
+// --- Sub-component for the "Create Team" Form ---
+const CreateTeamModal = ({ onClose, addTeam }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    eventName: '',
+    description: ''
+  });
+  const [skills, setSkills] = useState('');
 
-import "./Teams.css";
-const findTeamsData = [
-  {
-    id: 1,
-    name: 'Code Wizards',
-    eventName: 'for CodeStorm Hackathon',
-    description: 'Aiming to build a revolutionary project management tool with AI integration. We need creative minds who are passionate about clean code.',
-    lookingFor: ['React Dev', 'UI/UX Designer', 'Python Dev'],
-    members: [
-      'https://placehold.co/60x60/7cff67/000000?text=YD',
-      'https://placehold.co/60x60/5227FF/FFFFFF?text=JD',
-    ],
-  },
-  {
-    id: 2,
-    name: 'AI Innovators',
-    eventName: 'for AI Innovation Sprint',
-    description: 'We are developing a machine learning model to predict stock market trends. Looking for data enthusiasts and backend experts.',
-    lookingFor: ['Data Scientist', 'Node.js Dev'],
-    members: [
-      'https://placehold.co/60x60/FF5733/FFFFFF?text=AS',
-      'https://placehold.co/60x60/C70039/FFFFFF?text=EW',
-      'https://placehold.co/60x60/DAF7A6/000000?text=MJ',
-    ],
-  },
-  {
-    id: 3,
-    name: 'Web Warriors',
-    eventName: 'for Web Dev Challenge',
-    description: 'Focused on creating a highly interactive and visually stunning e-commerce website with a seamless user experience.',
-    lookingFor: ['Frontend Dev', 'UX Researcher'],
-    members: [
-      'https://placehold.co/60x60/FFC300/000000?text=LS',
-    ],
-  },
-    {
-    id: 4,
-    name: 'Robo Squad',
-    eventName: 'for Robotics HackFest',
-    description: 'Building a prototype for an autonomous delivery robot. We need hardware enthusiasts and C++ programmers.',
-    lookingFor: ['Robotics Eng.', 'C++ Dev', 'CAD Designer'],
-    members: [
-      'https://placehold.co/60x60/900C3F/FFFFFF?text=KB',
-      'https://placehold.co/60x60/33FF57/000000?text=RT',
-    ],
-  },
-];
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newTeam = {
+      id: Date.now(), // Use timestamp for a simple unique ID
+      members: ['https://placehold.co/60x60/random/FFFFFF?text=YOU'], // The creator is the first member
+      lookingFor: skills.split(',').map(skill => skill.trim()).filter(skill => skill), // Split skills by comma and remove empty strings
+      ...formData
+    };
+    addTeam(newTeam); // This function comes from App.js and updates the central state
+    onClose();
+  };
+
+  return (
+    <>
+      <div className="modal-overlay" onClick={onClose}></div>
+      <div className="create-modal-content">
+        <h2>Create a New Team</h2>
+        <form onSubmit={handleSubmit}>
+          <input name="name" value={formData.name} onChange={handleChange} placeholder="Team Name" required />
+          <input name="eventName" value={formData.eventName} onChange={handleChange} placeholder="For which event? (e.g., CodeStorm Hackathon)" required />
+          <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Briefly describe your team's goal" required />
+          <input value={skills} onChange={(e) => setSkills(e.target.value)} placeholder="Skills needed (e.g., React Dev, UI/UX, Python)" required />
+          <button type="submit" className="submit-btn">Create Team</button>
+        </form>
+      </div>
+    </>
+  );
+};
+
 
 // --- Sub-components for better structure ---
 const SkillTag = ({ skill }) => <span className="skill-tag">{skill}</span>;
@@ -80,7 +77,9 @@ const TeamCard = ({ team }) => (
 
 
 // --- Main Teams Component ---
-function Teams() {
+function Teams({ teamsData, addTeam }) {
+  const [isCreateOpen, setCreateOpen] = useState(false);
+  
   return (
     <div className="teams-container">
       <div className="section-header">
@@ -88,13 +87,16 @@ function Teams() {
         <p className="teams-subtitle">
           Collaborate with talented individuals and build something amazing together.
         </p>
+        <button className="create-new-btn" onClick={() => setCreateOpen(true)}>+ Create Team</button>
       </div>
 
       <div className="teams-grid">
-        {findTeamsData.map((team) => (
+        {teamsData.map((team) => (
           <TeamCard key={team.id} team={team} />
         ))}
       </div>
+      
+      {isCreateOpen && <CreateTeamModal addTeam={addTeam} onClose={() => setCreateOpen(false)} />}
     </div>
   );
 }

@@ -1,50 +1,6 @@
 import React, { useState } from 'react';
 import './Events.css';
-
-// --- Mock Data for Events ---
-const eventsData = [
-  {
-    id: 1,
-    type: 'Hackathon',
-    name: 'MEDHA 2025 - Medical Device Hackathon',
-    location: 'GHRCE, Nagpur',
-    date: 'Sept 19-20, 2025',
-    image: 'https://placehold.co/600x400/5227FF/FFFFFF?text=Med-Tech',
-    description: 'A premier hackathon focused on creating innovative solutions for the healthcare industry. Participants will tackle real-world challenges in medical technology under the mentorship of experts from BETiC IIT Bombay.',
-    registerLink: 'https://unstop.com/p/medha-2025-medical-device-hackathon-gh-raisoni-college-of-engineering-nagpur-12345'
-  },
-  {
-    id: 2,
-    type: 'National Hackathon',
-    name: 'India Open Hackathon 2025',
-    location: 'Hybrid (Online & IIT Bombay)',
-    date: 'Sept 18-26, 2025',
-    image: 'https://placehold.co/600x400/7cff67/000000?text=Open+Hack',
-    description: 'A multi-day, intensive event to help developers optimize and accelerate their HPC & AI applications using cutting-edge technologies, with mentorship from NVIDIA and C-DAC experts.',
-    registerLink: 'https://www.openhackathons.org/s/siteevent/a0CUP00001FSe3d2AD/se000392'
-  },
-  {
-    id: 3,
-    type: 'Conference',
-    name: 'Nasscom Design & Engineering Summit',
-    location: 'Bangalore',
-    date: 'Sept 11, 2025',
-    image: 'https://placehold.co/600x400/FF5733/FFFFFF?text=Nasscom+Summit',
-    description: 'The 17th edition of this premier summit brings together global leaders to discuss the future of intelligent systems, AI integration, and engineering R&D. A must-attend for tech leaders and innovators.',
-    registerLink: 'https://nasscom.in/events/nasscom-design-engineering-summit-2025'
-  },
-  {
-    id: 4,
-    type: 'Tech Expo',
-    name: 'TECHSPO Delhi NCR 2025',
-    location: 'Westin Gurgaon, Delhi NCR',
-    date: 'Sept 24-25, 2025',
-    image: 'https://placehold.co/600x400/FFC300/000000?text=TECHSPO',
-    description: 'An expo showcasing the next generation of technology & innovation, including Internet, Mobile, AdTech, MarTech & SaaS Technology. Connect with developers, brands, and marketers.',
-    registerLink: 'https://techspodelhi.in/'
-  }
-];
-
+import "./Model.css";
 // --- Sub-component for the Details Modal ---
 const EventModal = ({ event, onClose }) => (
   <>
@@ -57,13 +13,59 @@ const EventModal = ({ event, onClose }) => (
         <h2 className="modal-event-name">{event.name}</h2>
         <p className="modal-event-meta">{event.location} | {event.date}</p>
         <p className="modal-event-description">{event.description}</p>
-        <a href={event.registerLink} target="_blank" rel="noopener noreferrer" className="register-btn">
+        <a href={event.registerLink || '#'} target="_blank" rel="noopener noreferrer" className="register-btn">
           Register Now
         </a>
       </div>
     </div>
   </>
 );
+
+// --- Sub-component for the "Create Event" Form ---
+const CreateEventModal = ({ onClose, addEvent }) => {
+  const [formData, setFormData] = useState({
+    name: '', location: '', date: '', description: '', type: 'Hackathon'
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newEvent = {
+      id: Date.now(), // Use timestamp for a simple unique ID
+      image: `https://placehold.co/600x400/random/FFFFFF?text=${formData.name.substring(0, 10).replace(' ', '+')}`,
+      ...formData
+    };
+    addEvent(newEvent); // This function comes from App.js
+    onClose();
+  };
+
+  return (
+    <>
+      <div className="modal-overlay" onClick={onClose}></div>
+      <div className="create-modal-content">
+        <h2>Create a New Event</h2>
+        <form onSubmit={handleSubmit}>
+          <input name="name" value={formData.name} onChange={handleChange} placeholder="Event Name" required />
+          <input name="location" value={formData.location} onChange={handleChange} placeholder="Location (e.g., Nagpur)" required />
+          <input name="date" value={formData.date} onChange={handleChange} placeholder="Date (e.g., Oct 1-3, 2025)" required />
+          <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Event Description" required />
+          <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Specific Requirement(s)" required />
+          <select name="type" value={formData.type} onChange={handleChange}>
+            <option>Hackathon</option>
+            <option>Conference</option>
+            <option>Workshop</option>
+            <option>Tech Talk</option>
+          </select>
+          <button type="submit" className="submit-btn">Add Event</button>
+        </form>
+      </div>
+    </>
+  );
+};
 
 // --- Sub-component for an Event Card ---
 const EventCard = ({ event, onCardClick }) => (
@@ -79,9 +81,11 @@ const EventCard = ({ event, onCardClick }) => (
   </div>
 );
 
+
 // --- Main Events Component ---
-function Events() {
+function Events({ eventsData, addEvent }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [isCreateOpen, setCreateOpen] = useState(false);
 
   return (
     <div className="events-page-container">
@@ -90,6 +94,7 @@ function Events() {
         <p className="events-page-subtitle">
           Your gateway to the most exciting hackathons, conferences, and tech talks.
         </p>
+        <button className="create-new-btn" onClick={() => setCreateOpen(true)}>+ Create Event</button>
       </div>
 
       <div className="events-grid">
@@ -99,8 +104,10 @@ function Events() {
       </div>
 
       {selectedEvent && <EventModal event={selectedEvent} onClose={() => setSelectedEvent(null)} />}
+      {isCreateOpen && <CreateEventModal addEvent={addEvent} onClose={() => setCreateOpen(false)} />}
     </div>
   );
 }
 
 export default Events;
+

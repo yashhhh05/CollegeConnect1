@@ -1,0 +1,88 @@
+
+/* --- Styles for the "Create" Modals (Event & Team Forms) --- */
+.create-modal-content {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 90%;
+  max-width: 500px;
+  background: #1e1e1e;
+  color: #fff;
+  padding: 30px; 
+  border-radius: 12px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  z-index: 1001;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding-right: 20px; /* Extra padding for scrollbar space */
+}
+
+.create-modal-content h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+.create-modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.create-modal-content input,
+.create-modal-content textarea,
+.create-modal-content select {
+  width: 100%;
+  padding: 12px;
+  background-color: #333;
+  border: 1px solid #555;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.create-modal-content textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.submit-btn {
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #1e88e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #1e88e5, #1de9b6);
+}
+
+/* --- Style for the "Create" button on the main pages --- */
+.create-new-btn {
+  display: block;
+  margin: 25px auto 0;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: rgba(124, 255, 103, 0.8); /* Accent color from Aurora theme */
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.create-new-btn:hover {
+  background-color: rgba(124, 255, 103, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(124, 255, 103, 0.2);
+}
+

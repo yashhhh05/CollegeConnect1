@@ -16,7 +16,13 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
+    <nav className="navbar navbar-expand-lg navbar-dark sticky-top shadow "  
+    style={{
+      backdropFilter: "blur(10px)",
+      WebkitBackdropFilter: "blur(10px)",
+      backgroundColor: "rgba(24, 26, 27, 0.7)",
+  }}
+>
       <div className="container-fluid">
         <Link className="navbar-brand fw-bold" to="/">
           CollegeConnect
