@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Login from "./components/login";
@@ -8,14 +9,18 @@ import Teams from "./components/Teams";
 import Events from "./components/Events";
 import Aurora from "./components/Aurora";
 import HomePage from "./components/HomePage";
-import { initialEventsData, initialTeamsData } from "./mockData"; // ✨ IMPORT MOCK DATA
+import Forums from "./components/Forums";
+import UserSearch from "./components/UserSearch";
+import { ProjectsProvider } from "./contexts/ProjectsContext";
+import Projects from "./components/Projects";
+import { PostsProvider } from "./contexts/PostsContext";
+import { TeamsProvider } from "./contexts/TeamsContext";
+import { initialEventsData, initialTeamsData } from "./mockData"; 
+import { EventsProvider } from "./contexts/EventsContext";
 
-function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userProfile, setUserProfile] = useState({
-    // ... user profile data
-  });
-
+function AppContent() {
+  const { isAuthenticated, user } = useAuth();
+  
   // ✨ STATE FOR EVENTS AND TEAMS IS NOW CENTRALIZED HERE
   const [events, setEvents] = useState(initialEventsData);
   const [teams, setTeams] = useState(initialTeamsData);
@@ -33,28 +38,46 @@ function App() {
     <Router>
       <div className="d-flex flex-column min-vh-100">
         <Aurora />
-        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <Navbar />
         <main className="flex-grow-1 container mt-4 ">
           <Routes>
             <Route path="/" element={<HomePage />} />
             
-            {/* ✨ PASS DATA AND FUNCTIONS DOWN AS PROPS */}
+            {/*  PASS DATA AND FUNCTIONS DOWN AS PROPS */}
             <Route path="/events" element={<Events eventsData={events} addEvent={addEvent} />} />
-            <Route path="/teams" element={<Teams teamsData={teams} addTeam={addTeam} />} />
-
+            <Route path="/teams" element={<Teams />} />
+            <Route path="/forums" element={<Forums />} />
+            <Route path="/search" element={<UserSearch />} />
+            <Route path="/projects" element={<Projects />} />
             <Route
               path="/login"
-              element={isLoggedIn ? <Navigate to="/profile" /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+              element={isAuthenticated ? <Navigate to="/profile" /> : <Login />}
             />
             <Route
               path="/profile"
-              element={isLoggedIn ? <Profile userProfile={userProfile} setUserProfile={setUserProfile} /> : <Navigate to="/login" />}
+              element={isAuthenticated ? <Profile /> : <Navigate to="/login" />}
             />
           </Routes>
         </main>
         <Footer />
       </div>
     </Router>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <PostsProvider>
+        <EventsProvider>
+          <ProjectsProvider>
+            <TeamsProvider>
+              <AppContent />
+            </TeamsProvider>
+          </ProjectsProvider>
+        </EventsProvider>
+      </PostsProvider>
+    </AuthProvider>
   );
 }
 

@@ -2,16 +2,21 @@
 
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import pfp from "./pfpp.webp"; // Make sure this path is correct
 
-// Receives props from App.js; does NOT have its own state.
-function Navbar({ isLoggedIn, setIsLoggedIn }) {
+function Navbar() {
   const navigate = useNavigate();
+  const { isAuthenticated, user, logout } = useAuth();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     if (window.confirm("Are you sure you want to log out?")) {
-      setIsLoggedIn(false);
-      navigate("/"); // Redirect to home on logout
+      try {
+        await logout();
+        navigate("/"); // Redirect to home on logout
+      } catch (error) {
+        console.error("Logout error:", error);
+      }
     }
   };
 
@@ -37,16 +42,26 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
             <li className="nav-item"><Link className="nav-link" to="/events">Events</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/teams">Teams</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/forums">Forums</Link></li>
+            <li className="nav-item"><Link className="nav-link" to="/projects">Projects</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/about">About</Link></li>
+            <li className="nav-item"><Link className="nav-link" to="/search">Find Students</Link></li>
           </ul>
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-            {/* This is the critical part that uses the prop from App.js */}
-            {isLoggedIn ? (
+            {/* Authentication-based navigation */}
+            {isAuthenticated ? (
               <>
                 <li className="nav-item me-3">
                   <Link to="/profile" title="View Profile">
-                    <img src={pfp} alt="Profile" className="rounded-circle" style={{ width: "40px", height: "40px", objectFit: "cover" }}/>
+                    <img 
+                      src={user?.profileImage || pfp} 
+                      alt="Profile" 
+                      className="rounded-circle" 
+                      style={{ width: "40px", height: "40px", objectFit: "cover" }}
+                    />
                   </Link>
+                </li>
+                <li className="nav-item">
+                  <span className="text-light me-2">Welcome, {user?.name}</span>
                 </li>
                 <li className="nav-item">
                   <button className="btn btn-danger" onClick={handleLogout}>Logout</button>

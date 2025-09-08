@@ -1,0 +1,115 @@
+.forums-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .forums-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .create-post-form {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  }
+  
+  .create-post-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .create-post-form input,
+  .create-post-form select,
+  .create-post-form textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .create-post-form button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .post-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .post-category {
+    background: #007bff;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .post-content {
+    margin-bottom: 15px;
+    line-height: 1.6;
+  }
+  
+  .post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .post-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  .upvote-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .upvote-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  .post-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .tag {
+    background: #e9ecef;
+    color: #495057;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+  }
